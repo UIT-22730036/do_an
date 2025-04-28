@@ -1,0 +1,22 @@
+.manage-page {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .control {
+    display: flex;
+    justify-content: flex-end;
+
+    .btn-group {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  .student-table {
+    table {
+      border: 1px solid #000;
+    }
+  }
+}

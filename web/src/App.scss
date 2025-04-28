@@ -2,6 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem 0;
+
+  .segmented-container {
+    width: 80%;
+    padding-left: 50px;
+  }
 
   .content {
     width: 80%;

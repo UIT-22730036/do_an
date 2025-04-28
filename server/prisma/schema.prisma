@@ -15,13 +15,14 @@ datasource db {
 }
 
 model SinhVien {
-  maSV      Int      @id @default(autoincrement())
-  tenSV     String
-  email     String   @unique
-  lop       Lop      @relation(fields: [maLopId], references: [maLop], onDelete: Cascade)
-  maLopId   Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  maSV        Int          @id @default(autoincrement())
+  tenSV       String
+  email       String       @unique
+  lop         Lop          @relation(fields: [maLopId], references: [maLop], onDelete: Cascade)
+  maLopId     Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  TheSinhVien TheSinhVien?
 }
 
 model Lop {
@@ -31,4 +32,45 @@ model Lop {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   SinhVien  SinhVien[]
+}
+
+model TheSinhVien {
+  maThe      Int        @id @default(autoincrement())
+  maSVId     Int        @unique
+  sinhVien   SinhVien   @relation(fields: [maSVId], references: [maSV], onDelete: Cascade)
+  ngayCap    DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  ngayHetHan DateTime?
+  GiaoDich   GiaoDich[]
+}
+
+model ViTri {
+  maViTri   Int        @id @default(autoincrement())
+  tenViTri  String
+  kinhDo    Float
+  viDo      Float
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  GiaoDich  GiaoDich[]
+  ThietBi   ThietBi[]
+}
+
+model GiaoDich {
+  maGD      Int         @id @default(autoincrement())
+  maTheId   Int
+  theSV     TheSinhVien @relation(fields: [maTheId], references: [maThe], onDelete: Cascade)
+  maViTriId Int
+  viTri     ViTri       @relation(fields: [maViTriId], references: [maViTri], onDelete: Cascade)
+  thoiGian  DateTime    @default(now())
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model ThietBi {
+  maTB      Int      @id @default(autoincrement())
+  tenTB     String
+  maViTriId Int
+  viTri     ViTri    @relation(fields: [maViTriId], references: [maViTri], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
