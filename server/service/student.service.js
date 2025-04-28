@@ -18,7 +18,8 @@ const createStudent = async (tenSV, email, lop) => {
 
     return newStudent;
   } catch (error) {
-    return error;
+    console.error("Error creating student:", error.message);
+    throw error;
   }
 };
 const studentService = { getStudents, createStudent };
