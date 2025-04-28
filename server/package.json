@@ -4,7 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "compose": "docker compose up -d"
+    "compose": "docker compose up -d",
+    "dev": "nodemon server.js",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^6.6.0",
