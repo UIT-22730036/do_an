@@ -1,16 +1,22 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useStudentStore } from "../../store";
-import { studentService } from "../../services/students.service";
-import { Button, Form, Input, message, Table } from "antd";
+import { Button, Cascader, Form, Input, message, Select, Table } from "antd";
 import * as moment from "moment";
 import { Modal } from "../../components";
 import "./home.scss";
+import { studentService, classService } from "../../services";
+import { useClassStore } from "../../store/class.store";
 
 const HomePage = () => {
+  const [studentForm] = Form.useForm();
+  const [classForm] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [isAddStudentModalOpen, setIsAddStudentModalOpen] = useState(false);
+  const [isAddClassModalOpen, setIsAddClassModalOpen] = useState(false);
+
   const { students, setStudents } = useStudentStore();
-  const [form] = Form.useForm();
+  const { classes, setClasses } = useClassStore();
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -40,8 +46,8 @@ const HomePage = () => {
       },
       {
         title: "Lớp",
-        dataIndex: "lop",
-        key: "lop",
+        dataIndex: "tenLop",
+        key: "tenLop",
       },
       {
         title: "Created At",
@@ -64,33 +70,64 @@ const HomePage = () => {
         maSV: std.maSV,
         tenSV: std.tenSV,
         email: std.email,
-        lop: std.lop,
+        tenLop: std.lop.tenLop,
         createdAt: std.createdAt,
         updatedAt: std.updatedAt,
       })) ?? []
     );
   }, [students]);
 
-  const showModal = () => {
-    setIsModalOpen(true);
+  const handleFocusClassSelect = async () => {
+    const res = await classService.getClasses();
+    setClasses(res.data);
   };
 
-  const handleOk = async () => {
-    try {
-      const { tenSV, email, lop } = form.getFieldsValue();
-      const res = await studentService.createStudent(tenSV, email, lop);
-      console.log(res);
+  const showAddStudentModal = () => {
+    setIsAddStudentModalOpen(true);
+  };
 
+  const handleAddStudentOk = async () => {
+    try {
+      studentForm.submit();
+      const value = studentForm.getFieldsValue();
+      if (Object.values(value).some((v) => !v)) return;
+      const { tenSV, email, tenLop } = value;
+      const res = await studentService.createStudent(tenSV, email, tenLop);
       setStudents([...students, res.data]);
-      form.resetFields();
-      setIsModalOpen(false);
+      studentForm.resetFields();
+      setIsAddStudentModalOpen(false);
     } catch (error) {
       errorNotification(error.response.data.message);
     }
   };
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
+  const handleAddStudentCancel = () => {
+    setIsAddStudentModalOpen(false);
+    studentForm.resetFields();
+  };
+
+  const showAddClassModal = () => {
+    setIsAddClassModalOpen(true);
+  };
+
+  const handleAddClassOk = async () => {
+    try {
+      classForm.submit();
+      const value = classForm.getFieldsValue();
+      if (Object.values(value).some((v) => !v)) return;
+      const { tenLop } = value;
+      const res = await classService.createClass(tenLop);
+      setClasses([...classes, res.data]);
+      classForm.resetFields();
+      setIsAddClassModalOpen(false);
+    } catch (error) {
+      errorNotification(error.response.data.message);
+    }
+  };
+
+  const handleAddClassCancel = () => {
+    setIsAddClassModalOpen(false);
+    classForm.resetFields();
   };
 
   const errorNotification = (errorMessage) => {
@@ -99,14 +136,28 @@ const HomePage = () => {
       content: errorMessage,
     });
   };
+  console.log(studentForm.getFieldsValue());
 
   return (
     <div className="home-page">
       {contextHolder}
       <div className="control">
-        <Button type="primary" className="add-student-btn" onClick={showModal}>
-          Thêm Sinh Viên
-        </Button>
+        <div className="btn-group">
+          <Button
+            type="primary"
+            className="add-student-btn"
+            onClick={showAddStudentModal}
+          >
+            Thêm Sinh Viên
+          </Button>
+          <Button
+            type="primary"
+            className="add-class-btn"
+            onClick={showAddClassModal}
+          >
+            Thêm Lớp
+          </Button>
+        </div>
       </div>
       <Table
         className="student-table"
@@ -116,12 +167,16 @@ const HomePage = () => {
       />
       <Modal
         title="Thêm Sinh Viên"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
+        open={isAddStudentModalOpen}
+        onOk={handleAddStudentOk}
+        onCancel={handleAddStudentCancel}
       >
         <div className="modal-content">
-          <Form form={form} className="add-student-form" layout="vertical">
+          <Form
+            form={studentForm}
+            className="add-student-form"
+            layout="vertical"
+          >
             <Form.Item
               layout="vertical"
               label="Tên SV"
@@ -147,10 +202,38 @@ const HomePage = () => {
             <Form.Item
               layout="vertical"
               label="Lớp"
-              name="lop"
+              name="tenLop"
               required
               rules={[
                 { required: true, message: "Lớp SV không được để trống" },
+              ]}
+            >
+              <Select
+                onFocus={handleFocusClassSelect}
+                options={classes.map((cls) => ({
+                  value: cls.tenLop,
+                  label: cls.tenLop,
+                }))}
+              />
+            </Form.Item>
+          </Form>
+        </div>
+      </Modal>
+      <Modal
+        title="Thêm Lớp"
+        open={isAddClassModalOpen}
+        onOk={handleAddClassOk}
+        onCancel={handleAddClassCancel}
+      >
+        <div className="modal-content">
+          <Form form={classForm} className="add-class-form" layout="vertical">
+            <Form.Item
+              layout="vertical"
+              label="Tên lớp"
+              name="tenLop"
+              required
+              rules={[
+                { required: true, message: "Tên lớp không được để trống" },
               ]}
             >
               <Input />

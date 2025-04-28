@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { studentRouter } = require("./routers");
+const { studentRouter, classRouter } = require("./routers");
 
 require("dotenv").config();
 
@@ -17,3 +17,4 @@ app.listen(port, console.log(`Server is running on port ${port}`));
 app.get("/", (req, res) => res.send("Server is running"));
 
 app.use("/students", studentRouter);
+app.use("/class", classRouter);

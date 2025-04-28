@@ -6,11 +6,11 @@ const getStudents = async () => {
   return res;
 };
 
-const createStudent = async (tenSV, email, lop) => {
+const createStudent = async (tenSV, email, tenLop) => {
   const res = await axios.post(getEndPoints().students.createStudent, {
     tenSV,
     email,
-    lop,
+    tenLop,
   });
   return res;
 };

@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type SinhVien = $Result.DefaultSelection<Prisma.$SinhVienPayload>
+/**
+ * Model Lop
+ * 
+ */
+export type Lop = $Result.DefaultSelection<Prisma.$LopPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get sinhVien(): Prisma.SinhVienDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lop`: Exposes CRUD operations for the **Lop** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lops
+    * const lops = await prisma.lop.findMany()
+    * ```
+    */
+  get lop(): Prisma.LopDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    SinhVien: 'SinhVien'
+    SinhVien: 'SinhVien',
+    Lop: 'Lop'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "sinhVien"
+      modelProps: "sinhVien" | "lop"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.SinhVienCountArgs<ExtArgs>
             result: $Utils.Optional<SinhVienCountAggregateOutputType> | number
+          }
+        }
+      }
+      Lop: {
+        payload: Prisma.$LopPayload<ExtArgs>
+        fields: Prisma.LopFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LopFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LopFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          findFirst: {
+            args: Prisma.LopFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LopFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          findMany: {
+            args: Prisma.LopFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>[]
+          }
+          create: {
+            args: Prisma.LopCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          createMany: {
+            args: Prisma.LopCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LopCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>[]
+          }
+          delete: {
+            args: Prisma.LopDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          update: {
+            args: Prisma.LopUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          deleteMany: {
+            args: Prisma.LopDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LopUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LopUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>[]
+          }
+          upsert: {
+            args: Prisma.LopUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LopPayload>
+          }
+          aggregate: {
+            args: Prisma.LopAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLop>
+          }
+          groupBy: {
+            args: Prisma.LopGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LopGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LopCountArgs<ExtArgs>
+            result: $Utils.Optional<LopCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     sinhVien?: SinhVienOmit
+    lop?: LopOmit
   }
 
   /* Types for Logging */
@@ -864,6 +955,36 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type LopCountOutputType
+   */
+
+  export type LopCountOutputType = {
+    SinhVien: number
+  }
+
+  export type LopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    SinhVien?: boolean | LopCountOutputTypeCountSinhVienArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LopCountOutputType without action
+   */
+  export type LopCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LopCountOutputType
+     */
+    select?: LopCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LopCountOutputType without action
+   */
+  export type LopCountOutputTypeCountSinhVienArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SinhVienWhereInput
+  }
+
 
   /**
    * Models
@@ -883,17 +1004,19 @@ export namespace Prisma {
 
   export type SinhVienAvgAggregateOutputType = {
     maSV: number | null
+    maLopId: number | null
   }
 
   export type SinhVienSumAggregateOutputType = {
     maSV: number | null
+    maLopId: number | null
   }
 
   export type SinhVienMinAggregateOutputType = {
     maSV: number | null
     tenSV: string | null
     email: string | null
-    lop: string | null
+    maLopId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -902,7 +1025,7 @@ export namespace Prisma {
     maSV: number | null
     tenSV: string | null
     email: string | null
-    lop: string | null
+    maLopId: number | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -911,7 +1034,7 @@ export namespace Prisma {
     maSV: number
     tenSV: number
     email: number
-    lop: number
+    maLopId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -920,17 +1043,19 @@ export namespace Prisma {
 
   export type SinhVienAvgAggregateInputType = {
     maSV?: true
+    maLopId?: true
   }
 
   export type SinhVienSumAggregateInputType = {
     maSV?: true
+    maLopId?: true
   }
 
   export type SinhVienMinAggregateInputType = {
     maSV?: true
     tenSV?: true
     email?: true
-    lop?: true
+    maLopId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -939,7 +1064,7 @@ export namespace Prisma {
     maSV?: true
     tenSV?: true
     email?: true
-    lop?: true
+    maLopId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -948,7 +1073,7 @@ export namespace Prisma {
     maSV?: true
     tenSV?: true
     email?: true
-    lop?: true
+    maLopId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1044,7 +1169,7 @@ export namespace Prisma {
     maSV: number
     tenSV: string
     email: string
-    lop: string
+    maLopId: number
     createdAt: Date
     updatedAt: Date
     _count: SinhVienCountAggregateOutputType | null
@@ -1072,48 +1197,62 @@ export namespace Prisma {
     maSV?: boolean
     tenSV?: boolean
     email?: boolean
-    lop?: boolean
+    maLopId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    lop?: boolean | LopDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sinhVien"]>
 
   export type SinhVienSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     maSV?: boolean
     tenSV?: boolean
     email?: boolean
-    lop?: boolean
+    maLopId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    lop?: boolean | LopDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sinhVien"]>
 
   export type SinhVienSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     maSV?: boolean
     tenSV?: boolean
     email?: boolean
-    lop?: boolean
+    maLopId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    lop?: boolean | LopDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["sinhVien"]>
 
   export type SinhVienSelectScalar = {
     maSV?: boolean
     tenSV?: boolean
     email?: boolean
-    lop?: boolean
+    maLopId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type SinhVienOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"maSV" | "tenSV" | "email" | "lop" | "createdAt" | "updatedAt", ExtArgs["result"]["sinhVien"]>
+  export type SinhVienOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"maSV" | "tenSV" | "email" | "maLopId" | "createdAt" | "updatedAt", ExtArgs["result"]["sinhVien"]>
+  export type SinhVienInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lop?: boolean | LopDefaultArgs<ExtArgs>
+  }
+  export type SinhVienIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lop?: boolean | LopDefaultArgs<ExtArgs>
+  }
+  export type SinhVienIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lop?: boolean | LopDefaultArgs<ExtArgs>
+  }
 
   export type $SinhVienPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "SinhVien"
-    objects: {}
+    objects: {
+      lop: Prisma.$LopPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       maSV: number
       tenSV: string
       email: string
-      lop: string
+      maLopId: number
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["sinhVien"]>
@@ -1510,6 +1649,7 @@ export namespace Prisma {
    */
   export interface Prisma__SinhVienClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    lop<T extends LopDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LopDefaultArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1542,7 +1682,7 @@ export namespace Prisma {
     readonly maSV: FieldRef<"SinhVien", 'Int'>
     readonly tenSV: FieldRef<"SinhVien", 'String'>
     readonly email: FieldRef<"SinhVien", 'String'>
-    readonly lop: FieldRef<"SinhVien", 'String'>
+    readonly maLopId: FieldRef<"SinhVien", 'Int'>
     readonly createdAt: FieldRef<"SinhVien", 'DateTime'>
     readonly updatedAt: FieldRef<"SinhVien", 'DateTime'>
   }
@@ -1562,6 +1702,10 @@ export namespace Prisma {
      */
     omit?: SinhVienOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    /**
      * Filter, which SinhVien to fetch.
      */
     where: SinhVienWhereUniqueInput
@@ -1580,6 +1724,10 @@ export namespace Prisma {
      */
     omit?: SinhVienOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    /**
      * Filter, which SinhVien to fetch.
      */
     where: SinhVienWhereUniqueInput
@@ -1597,6 +1745,10 @@ export namespace Prisma {
      * Omit specific fields from the SinhVien
      */
     omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
     /**
      * Filter, which SinhVien to fetch.
      */
@@ -1646,6 +1798,10 @@ export namespace Prisma {
      */
     omit?: SinhVienOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    /**
      * Filter, which SinhVien to fetch.
      */
     where?: SinhVienWhereInput
@@ -1694,6 +1850,10 @@ export namespace Prisma {
      */
     omit?: SinhVienOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    /**
      * Filter, which SinhViens to fetch.
      */
     where?: SinhVienWhereInput
@@ -1737,6 +1897,10 @@ export namespace Prisma {
      */
     omit?: SinhVienOmit<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    /**
      * The data needed to create a SinhVien.
      */
     data: XOR<SinhVienCreateInput, SinhVienUncheckedCreateInput>
@@ -1770,6 +1934,10 @@ export namespace Prisma {
      */
     data: SinhVienCreateManyInput | SinhVienCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1784,6 +1952,10 @@ export namespace Prisma {
      * Omit specific fields from the SinhVien
      */
     omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
     /**
      * The data needed to update a SinhVien.
      */
@@ -1836,6 +2008,10 @@ export namespace Prisma {
      * Limit how many SinhViens to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -1850,6 +2026,10 @@ export namespace Prisma {
      * Omit specific fields from the SinhVien
      */
     omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
     /**
      * The filter to search for the SinhVien to update in case it exists.
      */
@@ -1876,6 +2056,10 @@ export namespace Prisma {
      * Omit specific fields from the SinhVien
      */
     omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
     /**
      * Filter which SinhVien to delete.
      */
@@ -1908,6 +2092,1118 @@ export namespace Prisma {
      * Omit specific fields from the SinhVien
      */
     omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Lop
+   */
+
+  export type AggregateLop = {
+    _count: LopCountAggregateOutputType | null
+    _avg: LopAvgAggregateOutputType | null
+    _sum: LopSumAggregateOutputType | null
+    _min: LopMinAggregateOutputType | null
+    _max: LopMaxAggregateOutputType | null
+  }
+
+  export type LopAvgAggregateOutputType = {
+    maLop: number | null
+    soSV: number | null
+  }
+
+  export type LopSumAggregateOutputType = {
+    maLop: number | null
+    soSV: number | null
+  }
+
+  export type LopMinAggregateOutputType = {
+    maLop: number | null
+    tenLop: string | null
+    soSV: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LopMaxAggregateOutputType = {
+    maLop: number | null
+    tenLop: string | null
+    soSV: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LopCountAggregateOutputType = {
+    maLop: number
+    tenLop: number
+    soSV: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LopAvgAggregateInputType = {
+    maLop?: true
+    soSV?: true
+  }
+
+  export type LopSumAggregateInputType = {
+    maLop?: true
+    soSV?: true
+  }
+
+  export type LopMinAggregateInputType = {
+    maLop?: true
+    tenLop?: true
+    soSV?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LopMaxAggregateInputType = {
+    maLop?: true
+    tenLop?: true
+    soSV?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LopCountAggregateInputType = {
+    maLop?: true
+    tenLop?: true
+    soSV?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LopAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lop to aggregate.
+     */
+    where?: LopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lops to fetch.
+     */
+    orderBy?: LopOrderByWithRelationInput | LopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lops
+    **/
+    _count?: true | LopCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LopAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LopSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LopMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LopMaxAggregateInputType
+  }
+
+  export type GetLopAggregateType<T extends LopAggregateArgs> = {
+        [P in keyof T & keyof AggregateLop]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLop[P]>
+      : GetScalarType<T[P], AggregateLop[P]>
+  }
+
+
+
+
+  export type LopGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LopWhereInput
+    orderBy?: LopOrderByWithAggregationInput | LopOrderByWithAggregationInput[]
+    by: LopScalarFieldEnum[] | LopScalarFieldEnum
+    having?: LopScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LopCountAggregateInputType | true
+    _avg?: LopAvgAggregateInputType
+    _sum?: LopSumAggregateInputType
+    _min?: LopMinAggregateInputType
+    _max?: LopMaxAggregateInputType
+  }
+
+  export type LopGroupByOutputType = {
+    maLop: number
+    tenLop: string
+    soSV: number
+    createdAt: Date
+    updatedAt: Date
+    _count: LopCountAggregateOutputType | null
+    _avg: LopAvgAggregateOutputType | null
+    _sum: LopSumAggregateOutputType | null
+    _min: LopMinAggregateOutputType | null
+    _max: LopMaxAggregateOutputType | null
+  }
+
+  type GetLopGroupByPayload<T extends LopGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LopGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LopGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LopGroupByOutputType[P]>
+            : GetScalarType<T[P], LopGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LopSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    maLop?: boolean
+    tenLop?: boolean
+    soSV?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    SinhVien?: boolean | Lop$SinhVienArgs<ExtArgs>
+    _count?: boolean | LopCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lop"]>
+
+  export type LopSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    maLop?: boolean
+    tenLop?: boolean
+    soSV?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["lop"]>
+
+  export type LopSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    maLop?: boolean
+    tenLop?: boolean
+    soSV?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["lop"]>
+
+  export type LopSelectScalar = {
+    maLop?: boolean
+    tenLop?: boolean
+    soSV?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LopOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"maLop" | "tenLop" | "soSV" | "createdAt" | "updatedAt", ExtArgs["result"]["lop"]>
+  export type LopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    SinhVien?: boolean | Lop$SinhVienArgs<ExtArgs>
+    _count?: boolean | LopCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LopIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type LopIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $LopPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Lop"
+    objects: {
+      SinhVien: Prisma.$SinhVienPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      maLop: number
+      tenLop: string
+      soSV: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["lop"]>
+    composites: {}
+  }
+
+  type LopGetPayload<S extends boolean | null | undefined | LopDefaultArgs> = $Result.GetResult<Prisma.$LopPayload, S>
+
+  type LopCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LopFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LopCountAggregateInputType | true
+    }
+
+  export interface LopDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lop'], meta: { name: 'Lop' } }
+    /**
+     * Find zero or one Lop that matches the filter.
+     * @param {LopFindUniqueArgs} args - Arguments to find a Lop
+     * @example
+     * // Get one Lop
+     * const lop = await prisma.lop.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LopFindUniqueArgs>(args: SelectSubset<T, LopFindUniqueArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lop that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LopFindUniqueOrThrowArgs} args - Arguments to find a Lop
+     * @example
+     * // Get one Lop
+     * const lop = await prisma.lop.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LopFindUniqueOrThrowArgs>(args: SelectSubset<T, LopFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lop that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopFindFirstArgs} args - Arguments to find a Lop
+     * @example
+     * // Get one Lop
+     * const lop = await prisma.lop.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LopFindFirstArgs>(args?: SelectSubset<T, LopFindFirstArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lop that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopFindFirstOrThrowArgs} args - Arguments to find a Lop
+     * @example
+     * // Get one Lop
+     * const lop = await prisma.lop.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LopFindFirstOrThrowArgs>(args?: SelectSubset<T, LopFindFirstOrThrowArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lops that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lops
+     * const lops = await prisma.lop.findMany()
+     * 
+     * // Get first 10 Lops
+     * const lops = await prisma.lop.findMany({ take: 10 })
+     * 
+     * // Only select the `maLop`
+     * const lopWithMaLopOnly = await prisma.lop.findMany({ select: { maLop: true } })
+     * 
+     */
+    findMany<T extends LopFindManyArgs>(args?: SelectSubset<T, LopFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lop.
+     * @param {LopCreateArgs} args - Arguments to create a Lop.
+     * @example
+     * // Create one Lop
+     * const Lop = await prisma.lop.create({
+     *   data: {
+     *     // ... data to create a Lop
+     *   }
+     * })
+     * 
+     */
+    create<T extends LopCreateArgs>(args: SelectSubset<T, LopCreateArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lops.
+     * @param {LopCreateManyArgs} args - Arguments to create many Lops.
+     * @example
+     * // Create many Lops
+     * const lop = await prisma.lop.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LopCreateManyArgs>(args?: SelectSubset<T, LopCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lops and returns the data saved in the database.
+     * @param {LopCreateManyAndReturnArgs} args - Arguments to create many Lops.
+     * @example
+     * // Create many Lops
+     * const lop = await prisma.lop.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lops and only return the `maLop`
+     * const lopWithMaLopOnly = await prisma.lop.createManyAndReturn({
+     *   select: { maLop: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LopCreateManyAndReturnArgs>(args?: SelectSubset<T, LopCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Lop.
+     * @param {LopDeleteArgs} args - Arguments to delete one Lop.
+     * @example
+     * // Delete one Lop
+     * const Lop = await prisma.lop.delete({
+     *   where: {
+     *     // ... filter to delete one Lop
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LopDeleteArgs>(args: SelectSubset<T, LopDeleteArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lop.
+     * @param {LopUpdateArgs} args - Arguments to update one Lop.
+     * @example
+     * // Update one Lop
+     * const lop = await prisma.lop.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LopUpdateArgs>(args: SelectSubset<T, LopUpdateArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lops.
+     * @param {LopDeleteManyArgs} args - Arguments to filter Lops to delete.
+     * @example
+     * // Delete a few Lops
+     * const { count } = await prisma.lop.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LopDeleteManyArgs>(args?: SelectSubset<T, LopDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lops
+     * const lop = await prisma.lop.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LopUpdateManyArgs>(args: SelectSubset<T, LopUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lops and returns the data updated in the database.
+     * @param {LopUpdateManyAndReturnArgs} args - Arguments to update many Lops.
+     * @example
+     * // Update many Lops
+     * const lop = await prisma.lop.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lops and only return the `maLop`
+     * const lopWithMaLopOnly = await prisma.lop.updateManyAndReturn({
+     *   select: { maLop: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LopUpdateManyAndReturnArgs>(args: SelectSubset<T, LopUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Lop.
+     * @param {LopUpsertArgs} args - Arguments to update or create a Lop.
+     * @example
+     * // Update or create a Lop
+     * const lop = await prisma.lop.upsert({
+     *   create: {
+     *     // ... data to create a Lop
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lop we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LopUpsertArgs>(args: SelectSubset<T, LopUpsertArgs<ExtArgs>>): Prisma__LopClient<$Result.GetResult<Prisma.$LopPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lops.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopCountArgs} args - Arguments to filter Lops to count.
+     * @example
+     * // Count the number of Lops
+     * const count = await prisma.lop.count({
+     *   where: {
+     *     // ... the filter for the Lops we want to count
+     *   }
+     * })
+    **/
+    count<T extends LopCountArgs>(
+      args?: Subset<T, LopCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LopCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LopAggregateArgs>(args: Subset<T, LopAggregateArgs>): Prisma.PrismaPromise<GetLopAggregateType<T>>
+
+    /**
+     * Group by Lop.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LopGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LopGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LopGroupByArgs['orderBy'] }
+        : { orderBy?: LopGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LopGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLopGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Lop model
+   */
+  readonly fields: LopFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Lop.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LopClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    SinhVien<T extends Lop$SinhVienArgs<ExtArgs> = {}>(args?: Subset<T, Lop$SinhVienArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SinhVienPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Lop model
+   */
+  interface LopFieldRefs {
+    readonly maLop: FieldRef<"Lop", 'Int'>
+    readonly tenLop: FieldRef<"Lop", 'String'>
+    readonly soSV: FieldRef<"Lop", 'Int'>
+    readonly createdAt: FieldRef<"Lop", 'DateTime'>
+    readonly updatedAt: FieldRef<"Lop", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Lop findUnique
+   */
+  export type LopFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter, which Lop to fetch.
+     */
+    where: LopWhereUniqueInput
+  }
+
+  /**
+   * Lop findUniqueOrThrow
+   */
+  export type LopFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter, which Lop to fetch.
+     */
+    where: LopWhereUniqueInput
+  }
+
+  /**
+   * Lop findFirst
+   */
+  export type LopFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter, which Lop to fetch.
+     */
+    where?: LopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lops to fetch.
+     */
+    orderBy?: LopOrderByWithRelationInput | LopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lops.
+     */
+    cursor?: LopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lops.
+     */
+    distinct?: LopScalarFieldEnum | LopScalarFieldEnum[]
+  }
+
+  /**
+   * Lop findFirstOrThrow
+   */
+  export type LopFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter, which Lop to fetch.
+     */
+    where?: LopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lops to fetch.
+     */
+    orderBy?: LopOrderByWithRelationInput | LopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lops.
+     */
+    cursor?: LopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lops.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lops.
+     */
+    distinct?: LopScalarFieldEnum | LopScalarFieldEnum[]
+  }
+
+  /**
+   * Lop findMany
+   */
+  export type LopFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter, which Lops to fetch.
+     */
+    where?: LopWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lops to fetch.
+     */
+    orderBy?: LopOrderByWithRelationInput | LopOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lops.
+     */
+    cursor?: LopWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lops from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lops.
+     */
+    skip?: number
+    distinct?: LopScalarFieldEnum | LopScalarFieldEnum[]
+  }
+
+  /**
+   * Lop create
+   */
+  export type LopCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Lop.
+     */
+    data: XOR<LopCreateInput, LopUncheckedCreateInput>
+  }
+
+  /**
+   * Lop createMany
+   */
+  export type LopCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lops.
+     */
+    data: LopCreateManyInput | LopCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lop createManyAndReturn
+   */
+  export type LopCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lops.
+     */
+    data: LopCreateManyInput | LopCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lop update
+   */
+  export type LopUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Lop.
+     */
+    data: XOR<LopUpdateInput, LopUncheckedUpdateInput>
+    /**
+     * Choose, which Lop to update.
+     */
+    where: LopWhereUniqueInput
+  }
+
+  /**
+   * Lop updateMany
+   */
+  export type LopUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lops.
+     */
+    data: XOR<LopUpdateManyMutationInput, LopUncheckedUpdateManyInput>
+    /**
+     * Filter which Lops to update
+     */
+    where?: LopWhereInput
+    /**
+     * Limit how many Lops to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lop updateManyAndReturn
+   */
+  export type LopUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * The data used to update Lops.
+     */
+    data: XOR<LopUpdateManyMutationInput, LopUncheckedUpdateManyInput>
+    /**
+     * Filter which Lops to update
+     */
+    where?: LopWhereInput
+    /**
+     * Limit how many Lops to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lop upsert
+   */
+  export type LopUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Lop to update in case it exists.
+     */
+    where: LopWhereUniqueInput
+    /**
+     * In case the Lop found by the `where` argument doesn't exist, create a new Lop with this data.
+     */
+    create: XOR<LopCreateInput, LopUncheckedCreateInput>
+    /**
+     * In case the Lop was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LopUpdateInput, LopUncheckedUpdateInput>
+  }
+
+  /**
+   * Lop delete
+   */
+  export type LopDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
+    /**
+     * Filter which Lop to delete.
+     */
+    where: LopWhereUniqueInput
+  }
+
+  /**
+   * Lop deleteMany
+   */
+  export type LopDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lops to delete
+     */
+    where?: LopWhereInput
+    /**
+     * Limit how many Lops to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lop.SinhVien
+   */
+  export type Lop$SinhVienArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SinhVien
+     */
+    select?: SinhVienSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SinhVien
+     */
+    omit?: SinhVienOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SinhVienInclude<ExtArgs> | null
+    where?: SinhVienWhereInput
+    orderBy?: SinhVienOrderByWithRelationInput | SinhVienOrderByWithRelationInput[]
+    cursor?: SinhVienWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SinhVienScalarFieldEnum | SinhVienScalarFieldEnum[]
+  }
+
+  /**
+   * Lop without action
+   */
+  export type LopDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lop
+     */
+    select?: LopSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lop
+     */
+    omit?: LopOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LopInclude<ExtArgs> | null
   }
 
 
@@ -1929,12 +3225,23 @@ export namespace Prisma {
     maSV: 'maSV',
     tenSV: 'tenSV',
     email: 'email',
-    lop: 'lop',
+    maLopId: 'maLopId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type SinhVienScalarFieldEnum = (typeof SinhVienScalarFieldEnum)[keyof typeof SinhVienScalarFieldEnum]
+
+
+  export const LopScalarFieldEnum: {
+    maLop: 'maLop',
+    tenLop: 'tenLop',
+    soSV: 'soSV',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LopScalarFieldEnum = (typeof LopScalarFieldEnum)[keyof typeof LopScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2024,18 +3331,20 @@ export namespace Prisma {
     maSV?: IntFilter<"SinhVien"> | number
     tenSV?: StringFilter<"SinhVien"> | string
     email?: StringFilter<"SinhVien"> | string
-    lop?: StringFilter<"SinhVien"> | string
+    maLopId?: IntFilter<"SinhVien"> | number
     createdAt?: DateTimeFilter<"SinhVien"> | Date | string
     updatedAt?: DateTimeFilter<"SinhVien"> | Date | string
+    lop?: XOR<LopScalarRelationFilter, LopWhereInput>
   }
 
   export type SinhVienOrderByWithRelationInput = {
     maSV?: SortOrder
     tenSV?: SortOrder
     email?: SortOrder
-    lop?: SortOrder
+    maLopId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    lop?: LopOrderByWithRelationInput
   }
 
   export type SinhVienWhereUniqueInput = Prisma.AtLeast<{
@@ -2045,16 +3354,17 @@ export namespace Prisma {
     OR?: SinhVienWhereInput[]
     NOT?: SinhVienWhereInput | SinhVienWhereInput[]
     tenSV?: StringFilter<"SinhVien"> | string
-    lop?: StringFilter<"SinhVien"> | string
+    maLopId?: IntFilter<"SinhVien"> | number
     createdAt?: DateTimeFilter<"SinhVien"> | Date | string
     updatedAt?: DateTimeFilter<"SinhVien"> | Date | string
+    lop?: XOR<LopScalarRelationFilter, LopWhereInput>
   }, "maSV" | "email">
 
   export type SinhVienOrderByWithAggregationInput = {
     maSV?: SortOrder
     tenSV?: SortOrder
     email?: SortOrder
-    lop?: SortOrder
+    maLopId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: SinhVienCountOrderByAggregateInput
@@ -2071,24 +3381,81 @@ export namespace Prisma {
     maSV?: IntWithAggregatesFilter<"SinhVien"> | number
     tenSV?: StringWithAggregatesFilter<"SinhVien"> | string
     email?: StringWithAggregatesFilter<"SinhVien"> | string
-    lop?: StringWithAggregatesFilter<"SinhVien"> | string
+    maLopId?: IntWithAggregatesFilter<"SinhVien"> | number
     createdAt?: DateTimeWithAggregatesFilter<"SinhVien"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"SinhVien"> | Date | string
+  }
+
+  export type LopWhereInput = {
+    AND?: LopWhereInput | LopWhereInput[]
+    OR?: LopWhereInput[]
+    NOT?: LopWhereInput | LopWhereInput[]
+    maLop?: IntFilter<"Lop"> | number
+    tenLop?: StringFilter<"Lop"> | string
+    soSV?: IntFilter<"Lop"> | number
+    createdAt?: DateTimeFilter<"Lop"> | Date | string
+    updatedAt?: DateTimeFilter<"Lop"> | Date | string
+    SinhVien?: SinhVienListRelationFilter
+  }
+
+  export type LopOrderByWithRelationInput = {
+    maLop?: SortOrder
+    tenLop?: SortOrder
+    soSV?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    SinhVien?: SinhVienOrderByRelationAggregateInput
+  }
+
+  export type LopWhereUniqueInput = Prisma.AtLeast<{
+    maLop?: number
+    tenLop?: string
+    AND?: LopWhereInput | LopWhereInput[]
+    OR?: LopWhereInput[]
+    NOT?: LopWhereInput | LopWhereInput[]
+    soSV?: IntFilter<"Lop"> | number
+    createdAt?: DateTimeFilter<"Lop"> | Date | string
+    updatedAt?: DateTimeFilter<"Lop"> | Date | string
+    SinhVien?: SinhVienListRelationFilter
+  }, "maLop" | "tenLop">
+
+  export type LopOrderByWithAggregationInput = {
+    maLop?: SortOrder
+    tenLop?: SortOrder
+    soSV?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LopCountOrderByAggregateInput
+    _avg?: LopAvgOrderByAggregateInput
+    _max?: LopMaxOrderByAggregateInput
+    _min?: LopMinOrderByAggregateInput
+    _sum?: LopSumOrderByAggregateInput
+  }
+
+  export type LopScalarWhereWithAggregatesInput = {
+    AND?: LopScalarWhereWithAggregatesInput | LopScalarWhereWithAggregatesInput[]
+    OR?: LopScalarWhereWithAggregatesInput[]
+    NOT?: LopScalarWhereWithAggregatesInput | LopScalarWhereWithAggregatesInput[]
+    maLop?: IntWithAggregatesFilter<"Lop"> | number
+    tenLop?: StringWithAggregatesFilter<"Lop"> | string
+    soSV?: IntWithAggregatesFilter<"Lop"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Lop"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Lop"> | Date | string
   }
 
   export type SinhVienCreateInput = {
     tenSV: string
     email: string
-    lop: string
     createdAt?: Date | string
     updatedAt?: Date | string
+    lop: LopCreateNestedOneWithoutSinhVienInput
   }
 
   export type SinhVienUncheckedCreateInput = {
     maSV?: number
     tenSV: string
     email: string
-    lop: string
+    maLopId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2096,16 +3463,16 @@ export namespace Prisma {
   export type SinhVienUpdateInput = {
     tenSV?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    lop?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lop?: LopUpdateOneRequiredWithoutSinhVienNestedInput
   }
 
   export type SinhVienUncheckedUpdateInput = {
     maSV?: IntFieldUpdateOperationsInput | number
     tenSV?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    lop?: StringFieldUpdateOperationsInput | string
+    maLopId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2114,7 +3481,7 @@ export namespace Prisma {
     maSV?: number
     tenSV: string
     email: string
-    lop: string
+    maLopId: number
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2122,7 +3489,6 @@ export namespace Prisma {
   export type SinhVienUpdateManyMutationInput = {
     tenSV?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    lop?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2131,7 +3497,64 @@ export namespace Prisma {
     maSV?: IntFieldUpdateOperationsInput | number
     tenSV?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
-    lop?: StringFieldUpdateOperationsInput | string
+    maLopId?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LopCreateInput = {
+    tenLop: string
+    soSV?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    SinhVien?: SinhVienCreateNestedManyWithoutLopInput
+  }
+
+  export type LopUncheckedCreateInput = {
+    maLop?: number
+    tenLop: string
+    soSV?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    SinhVien?: SinhVienUncheckedCreateNestedManyWithoutLopInput
+  }
+
+  export type LopUpdateInput = {
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    SinhVien?: SinhVienUpdateManyWithoutLopNestedInput
+  }
+
+  export type LopUncheckedUpdateInput = {
+    maLop?: IntFieldUpdateOperationsInput | number
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    SinhVien?: SinhVienUncheckedUpdateManyWithoutLopNestedInput
+  }
+
+  export type LopCreateManyInput = {
+    maLop?: number
+    tenLop: string
+    soSV?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LopUpdateManyMutationInput = {
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LopUncheckedUpdateManyInput = {
+    maLop?: IntFieldUpdateOperationsInput | number
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2173,24 +3596,30 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type LopScalarRelationFilter = {
+    is?: LopWhereInput
+    isNot?: LopWhereInput
+  }
+
   export type SinhVienCountOrderByAggregateInput = {
     maSV?: SortOrder
     tenSV?: SortOrder
     email?: SortOrder
-    lop?: SortOrder
+    maLopId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SinhVienAvgOrderByAggregateInput = {
     maSV?: SortOrder
+    maLopId?: SortOrder
   }
 
   export type SinhVienMaxOrderByAggregateInput = {
     maSV?: SortOrder
     tenSV?: SortOrder
     email?: SortOrder
-    lop?: SortOrder
+    maLopId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2199,13 +3628,14 @@ export namespace Prisma {
     maSV?: SortOrder
     tenSV?: SortOrder
     email?: SortOrder
-    lop?: SortOrder
+    maLopId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
 
   export type SinhVienSumOrderByAggregateInput = {
     maSV?: SortOrder
+    maLopId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -2256,6 +3686,56 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type SinhVienListRelationFilter = {
+    every?: SinhVienWhereInput
+    some?: SinhVienWhereInput
+    none?: SinhVienWhereInput
+  }
+
+  export type SinhVienOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LopCountOrderByAggregateInput = {
+    maLop?: SortOrder
+    tenLop?: SortOrder
+    soSV?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LopAvgOrderByAggregateInput = {
+    maLop?: SortOrder
+    soSV?: SortOrder
+  }
+
+  export type LopMaxOrderByAggregateInput = {
+    maLop?: SortOrder
+    tenLop?: SortOrder
+    soSV?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LopMinOrderByAggregateInput = {
+    maLop?: SortOrder
+    tenLop?: SortOrder
+    soSV?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LopSumOrderByAggregateInput = {
+    maLop?: SortOrder
+    soSV?: SortOrder
+  }
+
+  export type LopCreateNestedOneWithoutSinhVienInput = {
+    create?: XOR<LopCreateWithoutSinhVienInput, LopUncheckedCreateWithoutSinhVienInput>
+    connectOrCreate?: LopCreateOrConnectWithoutSinhVienInput
+    connect?: LopWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -2264,12 +3744,62 @@ export namespace Prisma {
     set?: Date | string
   }
 
+  export type LopUpdateOneRequiredWithoutSinhVienNestedInput = {
+    create?: XOR<LopCreateWithoutSinhVienInput, LopUncheckedCreateWithoutSinhVienInput>
+    connectOrCreate?: LopCreateOrConnectWithoutSinhVienInput
+    upsert?: LopUpsertWithoutSinhVienInput
+    connect?: LopWhereUniqueInput
+    update?: XOR<XOR<LopUpdateToOneWithWhereWithoutSinhVienInput, LopUpdateWithoutSinhVienInput>, LopUncheckedUpdateWithoutSinhVienInput>
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type SinhVienCreateNestedManyWithoutLopInput = {
+    create?: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput> | SinhVienCreateWithoutLopInput[] | SinhVienUncheckedCreateWithoutLopInput[]
+    connectOrCreate?: SinhVienCreateOrConnectWithoutLopInput | SinhVienCreateOrConnectWithoutLopInput[]
+    createMany?: SinhVienCreateManyLopInputEnvelope
+    connect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+  }
+
+  export type SinhVienUncheckedCreateNestedManyWithoutLopInput = {
+    create?: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput> | SinhVienCreateWithoutLopInput[] | SinhVienUncheckedCreateWithoutLopInput[]
+    connectOrCreate?: SinhVienCreateOrConnectWithoutLopInput | SinhVienCreateOrConnectWithoutLopInput[]
+    createMany?: SinhVienCreateManyLopInputEnvelope
+    connect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+  }
+
+  export type SinhVienUpdateManyWithoutLopNestedInput = {
+    create?: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput> | SinhVienCreateWithoutLopInput[] | SinhVienUncheckedCreateWithoutLopInput[]
+    connectOrCreate?: SinhVienCreateOrConnectWithoutLopInput | SinhVienCreateOrConnectWithoutLopInput[]
+    upsert?: SinhVienUpsertWithWhereUniqueWithoutLopInput | SinhVienUpsertWithWhereUniqueWithoutLopInput[]
+    createMany?: SinhVienCreateManyLopInputEnvelope
+    set?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    disconnect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    delete?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    connect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    update?: SinhVienUpdateWithWhereUniqueWithoutLopInput | SinhVienUpdateWithWhereUniqueWithoutLopInput[]
+    updateMany?: SinhVienUpdateManyWithWhereWithoutLopInput | SinhVienUpdateManyWithWhereWithoutLopInput[]
+    deleteMany?: SinhVienScalarWhereInput | SinhVienScalarWhereInput[]
+  }
+
+  export type SinhVienUncheckedUpdateManyWithoutLopNestedInput = {
+    create?: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput> | SinhVienCreateWithoutLopInput[] | SinhVienUncheckedCreateWithoutLopInput[]
+    connectOrCreate?: SinhVienCreateOrConnectWithoutLopInput | SinhVienCreateOrConnectWithoutLopInput[]
+    upsert?: SinhVienUpsertWithWhereUniqueWithoutLopInput | SinhVienUpsertWithWhereUniqueWithoutLopInput[]
+    createMany?: SinhVienCreateManyLopInputEnvelope
+    set?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    disconnect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    delete?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    connect?: SinhVienWhereUniqueInput | SinhVienWhereUniqueInput[]
+    update?: SinhVienUpdateWithWhereUniqueWithoutLopInput | SinhVienUpdateWithWhereUniqueWithoutLopInput[]
+    updateMany?: SinhVienUpdateManyWithWhereWithoutLopInput | SinhVienUpdateManyWithWhereWithoutLopInput[]
+    deleteMany?: SinhVienScalarWhereInput | SinhVienScalarWhereInput[]
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2364,6 +3894,136 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type LopCreateWithoutSinhVienInput = {
+    tenLop: string
+    soSV?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LopUncheckedCreateWithoutSinhVienInput = {
+    maLop?: number
+    tenLop: string
+    soSV?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LopCreateOrConnectWithoutSinhVienInput = {
+    where: LopWhereUniqueInput
+    create: XOR<LopCreateWithoutSinhVienInput, LopUncheckedCreateWithoutSinhVienInput>
+  }
+
+  export type LopUpsertWithoutSinhVienInput = {
+    update: XOR<LopUpdateWithoutSinhVienInput, LopUncheckedUpdateWithoutSinhVienInput>
+    create: XOR<LopCreateWithoutSinhVienInput, LopUncheckedCreateWithoutSinhVienInput>
+    where?: LopWhereInput
+  }
+
+  export type LopUpdateToOneWithWhereWithoutSinhVienInput = {
+    where?: LopWhereInput
+    data: XOR<LopUpdateWithoutSinhVienInput, LopUncheckedUpdateWithoutSinhVienInput>
+  }
+
+  export type LopUpdateWithoutSinhVienInput = {
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LopUncheckedUpdateWithoutSinhVienInput = {
+    maLop?: IntFieldUpdateOperationsInput | number
+    tenLop?: StringFieldUpdateOperationsInput | string
+    soSV?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SinhVienCreateWithoutLopInput = {
+    tenSV: string
+    email: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SinhVienUncheckedCreateWithoutLopInput = {
+    maSV?: number
+    tenSV: string
+    email: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SinhVienCreateOrConnectWithoutLopInput = {
+    where: SinhVienWhereUniqueInput
+    create: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput>
+  }
+
+  export type SinhVienCreateManyLopInputEnvelope = {
+    data: SinhVienCreateManyLopInput | SinhVienCreateManyLopInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SinhVienUpsertWithWhereUniqueWithoutLopInput = {
+    where: SinhVienWhereUniqueInput
+    update: XOR<SinhVienUpdateWithoutLopInput, SinhVienUncheckedUpdateWithoutLopInput>
+    create: XOR<SinhVienCreateWithoutLopInput, SinhVienUncheckedCreateWithoutLopInput>
+  }
+
+  export type SinhVienUpdateWithWhereUniqueWithoutLopInput = {
+    where: SinhVienWhereUniqueInput
+    data: XOR<SinhVienUpdateWithoutLopInput, SinhVienUncheckedUpdateWithoutLopInput>
+  }
+
+  export type SinhVienUpdateManyWithWhereWithoutLopInput = {
+    where: SinhVienScalarWhereInput
+    data: XOR<SinhVienUpdateManyMutationInput, SinhVienUncheckedUpdateManyWithoutLopInput>
+  }
+
+  export type SinhVienScalarWhereInput = {
+    AND?: SinhVienScalarWhereInput | SinhVienScalarWhereInput[]
+    OR?: SinhVienScalarWhereInput[]
+    NOT?: SinhVienScalarWhereInput | SinhVienScalarWhereInput[]
+    maSV?: IntFilter<"SinhVien"> | number
+    tenSV?: StringFilter<"SinhVien"> | string
+    email?: StringFilter<"SinhVien"> | string
+    maLopId?: IntFilter<"SinhVien"> | number
+    createdAt?: DateTimeFilter<"SinhVien"> | Date | string
+    updatedAt?: DateTimeFilter<"SinhVien"> | Date | string
+  }
+
+  export type SinhVienCreateManyLopInput = {
+    maSV?: number
+    tenSV: string
+    email: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SinhVienUpdateWithoutLopInput = {
+    tenSV?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SinhVienUncheckedUpdateWithoutLopInput = {
+    maSV?: IntFieldUpdateOperationsInput | number
+    tenSV?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SinhVienUncheckedUpdateManyWithoutLopInput = {
+    maSV?: IntFieldUpdateOperationsInput | number
+    tenSV?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

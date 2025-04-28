@@ -18,7 +18,17 @@ model SinhVien {
   maSV      Int      @id @default(autoincrement())
   tenSV     String
   email     String   @unique
-  lop       String
+  lop       Lop      @relation(fields: [maLopId], references: [maLop], onDelete: Cascade)
+  maLopId   Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Lop {
+  maLop     Int        @id @default(autoincrement())
+  tenLop    String     @unique
+  soSV      Int        @default(0)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  SinhVien  SinhVien[]
 }

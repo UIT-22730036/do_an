@@ -6,5 +6,9 @@ export const getEndPoints = () => {
       getStudents: `${apiBaseUrl}/students`,
       createStudent: `${apiBaseUrl}/students/create`,
     },
+    class: {
+      getClasses: `${apiBaseUrl}/class`,
+      createClass: `${apiBaseUrl}/class/create`,
+    },
   };
 };

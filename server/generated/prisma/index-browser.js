@@ -121,7 +121,15 @@ exports.Prisma.SinhVienScalarFieldEnum = {
   maSV: 'maSV',
   tenSV: 'tenSV',
   email: 'email',
-  lop: 'lop',
+  maLopId: 'maLopId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LopScalarFieldEnum = {
+  maLop: 'maLop',
+  tenLop: 'tenLop',
+  soSV: 'soSV',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -138,7 +146,8 @@ exports.Prisma.QueryMode = {
 
 
 exports.Prisma.ModelName = {
-  SinhVien: 'SinhVien'
+  SinhVien: 'SinhVien',
+  Lop: 'Lop'
 };
 
 /**
