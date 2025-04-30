@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo } from "react";
-import { Table } from "antd";
+import { Button, Table } from "antd";
 import * as moment from "moment";
 import PropTypes from "prop-types";
 import { studentService } from "../../../services";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const StudentTable = ({ students, setStudents }) => {
   useEffect(() => {
@@ -48,16 +49,30 @@ const StudentTable = ({ students, setStudents }) => {
         key: "updatedAt",
         render: (text) => moment(text).format("DD/MM/YYYY HH:mm:ss"),
       },
+      {
+        title: "Action",
+        key: "action",
+        render: () => (
+          <div style={{ display: "flex", gap: "0.5rem" }}>
+            <Button type="primary">
+              <EditOutlined />
+            </Button>
+            <Button color="danger" variant="solid">
+              <DeleteOutlined />
+            </Button>
+          </div>
+        ),
+      },
     ];
   }, []);
 
   const tableData = useMemo(() => {
     return (
       students?.map((std) => ({
-        maSV: std.maSV,
-        tenSV: std.tenSV,
+        maSV: std.maSv,
+        tenSV: std.tenSv,
         email: std.email,
-        tenLop: std.lop.tenLop,
+        tenLop: std?.lop?.tenLop,
         createdAt: std.createdAt,
         updatedAt: std.updatedAt,
       })) ?? []

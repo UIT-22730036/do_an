@@ -7,8 +7,8 @@ export class InitClass1745899469892 implements MigrationInterface {
                 ma_lop SERIAL PRIMARY KEY,
                 ten_lop TEXT UNIQUE,
                 so_sv INT NOT NULL DEFAULT 0,
-                createdAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-                updatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW()
+                created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+                updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
             )
         `);
   }
