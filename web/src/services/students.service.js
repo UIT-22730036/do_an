@@ -6,6 +6,13 @@ const getStudents = async () => {
   return res;
 };
 
+const getStudentsByClass = async (tenLop) => {
+  const res = await axios.get(
+    `${getEndPoints().students.getStudentsByClass}?tenLop=${tenLop}`,
+  );
+  return res;
+};
+
 const createStudent = async (tenSV, email, tenLop) => {
   const res = await axios.post(getEndPoints().students.createStudent, {
     tenSV,
@@ -15,4 +22,8 @@ const createStudent = async (tenSV, email, tenLop) => {
   return res;
 };
 
-export const studentService = { getStudents, createStudent };
+export const studentService = {
+  getStudents,
+  createStudent,
+  getStudentsByClass,
+};

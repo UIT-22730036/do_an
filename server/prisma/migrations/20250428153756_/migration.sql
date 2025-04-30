@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Lop" ALTER COLUMN "soSV" SET DEFAULT 0;

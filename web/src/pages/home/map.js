@@ -9,7 +9,6 @@ import PictureMarkerSymbol from "@arcgis/core/symbols/PictureMarkerSymbol";
 import Point from "@arcgis/core/geometry/Point";
 import Polyline from "@arcgis/core/geometry/Polyline";
 import SpatialReference from "@arcgis/core/geometry/SpatialReference";
-import SimpleLineSymbol from "@arcgis/core/symbols/SimpleLineSymbol";
 
 import "@arcgis/core/assets/esri/themes/light/main.css";
 
