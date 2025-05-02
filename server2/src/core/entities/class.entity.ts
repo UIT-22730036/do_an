@@ -1,14 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity('class')
 export class ClassEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('increment', { name: 'ma_lop' })
-  maLop: number;
+  @Column({ unique: true })
+  name: string;
 
-  @Column({ name: 'ten_lop', unique: true })
-  tenLop: string;
-
-  @Column({ name: 'so_sv', default: 0 })
-  soSv: number;
+  @Column({ name: 'student_count', default: 0 })
+  studentCount: number;
 }

@@ -1,3 +1,7 @@
 export class CreateClassDto {
-  tenLop: string;
+  name: string;
+}
+
+export class UpdateClassDto {
+  name?: string;
 }

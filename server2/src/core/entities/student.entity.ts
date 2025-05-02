@@ -1,17 +1,20 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { BaseEntity } from './base.entity';
 
 @Entity('students')
 export class StudentEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('increment', { name: 'ma_sv' })
-  maSv: string;
-
-  @Column({ name: 'ma_lop' })
-  maLop: number;
-
-  @Column({ name: 'ten_sv' })
-  tenSv: string;
+  @Column()
+  name: string;
 
   @Column({ name: 'email', unique: true })
   email: string;
+
+  @Column({ name: 'class_id' })
+  classId: number;
+
+  @Column({ type: 'float' })
+  lng: number;
+
+  @Column({ type: 'float' })
+  lat: number;
 }

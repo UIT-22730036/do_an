@@ -1,0 +1,12 @@
+name,positionId
+Thiết bị 1, 1
+Thiết bị 2, 2
+Thiết bị 3, 3
+Thiết bị 4, 4
+Thiết bị 5, 5
+Thiết bị 6, 6
+Thiết bị 7, 7
+Thiết bị 8, 8
+Thiết bị 9, 9
+Thiết bị 10, 10
+Thiết bị 11, 11
