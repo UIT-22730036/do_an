@@ -4,6 +4,7 @@ import { useGetStudents } from "../../hooks";
 import { cardService } from "../../services";
 import { useStore } from "../../store";
 import { useGetCards } from "../../hooks/card.hook";
+import { useNotification } from "../../Notification";
 
 type Props = {};
 
@@ -12,6 +13,7 @@ type FieldType = {
 };
 
 const AssignCardModal = (props: Props) => {
+  const notificationApi = useNotification();
   const { getStudents } = useGetStudents();
   const { getCards } = useGetCards();
   const { students } = useStore();
@@ -42,7 +44,10 @@ const AssignCardModal = (props: Props) => {
       setIsModalOpen(false);
       form.resetFields();
     } catch (error) {
-      console.log(error);
+      notificationApi.error({
+        message: "Lỗi",
+        description: error.message,
+      });
     }
   };
   return (

@@ -22,7 +22,10 @@ export class CardRepository implements ICardRepository {
   ) {}
 
   findAll(): Promise<CardEntity[]> {
-    return this.cardRepository.find({ where: { deletedAt: IsNull() } });
+    return this.cardRepository.find({
+      where: { deletedAt: IsNull() },
+      order: { id: 'ASC' },
+    });
   }
 
   findById(id: number): Promise<CardEntity> {

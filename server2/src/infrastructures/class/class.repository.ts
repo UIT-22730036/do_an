@@ -24,6 +24,7 @@ export class ClassRepository implements IClassRepository {
       where: {
         deletedAt: IsNull(),
       },
+      order: { id: 'ASC' },
     });
   }
 

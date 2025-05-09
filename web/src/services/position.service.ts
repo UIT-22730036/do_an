@@ -5,4 +5,8 @@ const getPositions = () => {
   return axios.get(getEndpoint().positions.getAll);
 };
 
-export const positionService = { getPositions };
+const deletePosition = (id: number) => {
+  return axios.delete(getEndpoint(id).positions.delete);
+};
+
+export const positionService = { getPositions, deletePosition };

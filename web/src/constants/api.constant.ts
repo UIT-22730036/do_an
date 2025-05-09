@@ -1,3 +1,5 @@
+import { create } from "domain";
+
 export const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 export const getEndpoint = (id?: number) => ({
@@ -21,11 +23,15 @@ export const getEndpoint = (id?: number) => ({
   },
   positions: {
     getAll: `${API_URL}/positions`,
+    delete: `${API_URL}/positions/delete/${id}`,
   },
   logs: {
     getAll: `${API_URL}/logs`,
   },
   props: {
     getAll: `${API_URL}/property`,
+    create: `${API_URL}/property/create`,
+    update: `${API_URL}/property/update/${id}`,
+    delete: `${API_URL}/property/delete/${id}`,
   },
 });

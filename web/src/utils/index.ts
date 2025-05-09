@@ -1,6 +1,8 @@
 import moment from "moment";
 import { ICard, ILog, IPosition, IStudent } from "../interfaces";
 import { IProperty } from "../interfaces/property.interface";
+import { UploadProps } from "antd";
+import { NotificationInstance } from "antd/es/notification/interface";
 
 export const convertStudents = (students: IStudent[]) => {
   return students.map((sv) => {
@@ -94,4 +96,30 @@ export const convertProperties = (props: IProperty[]) => {
       TenTB: prop.name,
     };
   });
+};
+
+export const getUploadProps = (
+  type: string,
+  notificationApi: NotificationInstance,
+) => {
+  const uploadProps: UploadProps = {
+    name: "file",
+    action: `${process.env.REACT_APP_API_URL}/csv/upload/${type}`,
+    headers: {
+      authorization: "authorization-text",
+    },
+    onChange(info) {
+      if (info.file.status !== "uploading") {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === "error") {
+        notificationApi.error({
+          message: "Lỗi",
+          description: "Tải lên thất bại",
+        });
+      }
+    },
+  };
+
+  return uploadProps;
 };

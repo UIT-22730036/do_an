@@ -17,7 +17,10 @@ export class LogRepository implements ILogRepository {
   ) {}
 
   findAll(): Promise<LogEntity[]> {
-    return this.logRepository.find({ where: { deletedAt: IsNull() } });
+    return this.logRepository.find({
+      where: { deletedAt: IsNull() },
+      order: { id: 'ASC' },
+    });
   }
 
   createBatch(logs: LogEntity[]): Promise<LogEntity[]> {

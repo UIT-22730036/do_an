@@ -1,6 +1,12 @@
 import { Tabs, TabsProps } from "antd";
-import { ClassTable, StudentTable } from "../../components";
-import CardTable from "../../components/table/CardTable";
+import {
+  CardTable,
+  ClassTable,
+  LogTable,
+  PositionTable,
+  PropertyTable,
+  StudentTable,
+} from "../../components";
 import "./ManagePage.scss";
 import { useGetClasses, useGetStudents } from "../../hooks";
 
@@ -25,6 +31,21 @@ const ManagePage = (props: Props) => {
       key: "3",
       label: "Thẻ SV",
       children: <CardTable />,
+    },
+    {
+      key: "4",
+      label: "Vị trí",
+      children: <PositionTable />,
+    },
+    {
+      key: "5",
+      label: "Thiết bị",
+      children: <PropertyTable />,
+    },
+    {
+      key: "6",
+      label: "Giao dịch",
+      children: <LogTable />,
     },
   ];
 

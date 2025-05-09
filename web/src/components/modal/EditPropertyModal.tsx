@@ -1,8 +1,8 @@
-import { Button, Form, Input, Modal } from "antd";
 import React, { useEffect, useState } from "react";
-import { useGetClasses } from "../../hooks";
-import { classService } from "../../services";
+import { useGetProperties } from "../../hooks";
+import { Button, Form, Input, Modal } from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import { propService } from "../../services";
 import { useNotification } from "../../Notification";
 
 type Props = {
@@ -10,12 +10,12 @@ type Props = {
 };
 
 type FieldType = {
-  className: string;
+  name: string;
 };
 
-const EditClassModal = ({ record }: Props) => {
+const EditPropertyModal = ({ record }: Props) => {
   const notificationApi = useNotification();
-  const { getClasses } = useGetClasses();
+  const { getProperties } = useGetProperties();
   const [form] = Form.useForm();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,10 +45,10 @@ const EditClassModal = ({ record }: Props) => {
   const onFinish = async () => {
     try {
       const data = form.getFieldsValue();
-      await classService.updateClass(record.id as number, {
-        name: data.className,
+      await propService.updateProp(record.id as number, {
+        name: data.name,
       });
-      await getClasses();
+      await getProperties();
 
       setIsModalOpen(false);
       form.resetFields();
@@ -66,17 +66,17 @@ const EditClassModal = ({ record }: Props) => {
         <EditOutlined />
       </Button>
       <Modal
-        title="Sửa lớp"
+        title="Sửa thiết bị"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form form={form} onFinish={onFinish} layout="vertical">
           <Form.Item<FieldType>
-            label="Tên lớp"
-            name="className"
+            label="Tên thiết bị"
+            name="name"
             rules={[
-              { required: true, message: "Tên lớp không được để trống!" },
+              { required: true, message: "Tên thiết bị không được để trống!" },
             ]}
           >
             <Input />
@@ -87,4 +87,4 @@ const EditClassModal = ({ record }: Props) => {
   );
 };
 
-export default EditClassModal;
+export default EditPropertyModal;

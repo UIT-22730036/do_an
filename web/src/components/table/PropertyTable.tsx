@@ -1,53 +1,41 @@
 import React, { useEffect, useMemo } from "react";
-import moment from "moment";
+import { useGetProperties } from "../../hooks";
 import { useStore } from "../../store";
+import moment from "moment";
 import { Button, Table, Upload, UploadProps } from "antd";
-import { AddStudentModal, AssignCardModal } from "../modal";
-import { useGetStudents } from "../../hooks";
-import EditStudentModal from "../modal/EditStudentModal";
-import DeleteStudentModal from "../modal/DeleteStudentModal";
+import DeletePropertyModal from "../modal/DeletePropertyModal";
+import EditPropertyModal from "../modal/EditPropertyModal";
+import AddPropModal from "../modal/AddPropModal";
 import { getUploadProps } from "../../utils";
 import { useNotification } from "../../Notification";
 
 type Props = {};
 
-const StudentTable = (props: Props) => {
+const PropertyTable = (props: Props) => {
   const notificationApi = useNotification();
-  const { getStudents } = useGetStudents();
-  const { students } = useStore();
-  const uploadProps: UploadProps = getUploadProps("students", notificationApi);
+  const { getProperties } = useGetProperties();
+  const { properties } = useStore();
+  const uploadProps: UploadProps = getUploadProps("property", notificationApi);
 
   useEffect(() => {
-    getStudents();
+    getProperties();
   }, []);
 
   const columns = [
     {
-      title: "Mã SV",
+      title: "Mã thiết bị",
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Tên SV",
+      title: "Tên thiết bị",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Email SV",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Mã thẻ SV",
-      dataIndex: "cardId",
-      key: "cardId",
-      render: (value) => <span>{value ?? "N/A"}</span>,
-    },
-    {
-      title: "Lớp",
-      dataIndex: "className",
-      key: "className",
-      render: (value) => <span>{value ?? "N/A"}</span>,
+      title: "Vị trí",
+      dataIndex: "positionName",
+      key: "positionName",
     },
     {
       title: "Ngày tạo",
@@ -71,31 +59,25 @@ const StudentTable = (props: Props) => {
       key: "action",
       render: (_, record) => (
         <div style={{ display: "flex", gap: 8 }}>
-          <EditStudentModal record={record} />
-          <DeleteStudentModal record={record} />
+          <EditPropertyModal record={record} />
+          <DeletePropertyModal record={record} />
         </div>
       ),
     },
   ];
 
   const data = useMemo(() => {
-    return students.map((std) => ({
-      key: std.id,
-      id: std.id,
-      name: std.name,
-      email: std.email,
-      cardId: std.card?.id,
-      className: std.lop?.name,
-      createdAt: std.createdAt,
-      updatedAt: std.updatedAt,
+    return properties.map((item) => ({
+      ...item,
+      positionName: item.position.name,
+      key: item.id,
     }));
-  }, [students]);
+  }, [properties]);
 
   return (
     <div className="table-container">
       <div className="btn-group">
-        <AddStudentModal />
-        <AssignCardModal />
+        <AddPropModal />
         <Upload {...uploadProps}>
           <Button type="primary">Import</Button>
         </Upload>
@@ -105,4 +87,4 @@ const StudentTable = (props: Props) => {
   );
 };
 
-export default StudentTable;
+export default PropertyTable;

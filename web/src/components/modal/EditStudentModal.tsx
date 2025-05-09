@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useGetClasses, useGetStudents } from "../../hooks";
 import { useStore } from "../../store";
 import { studentService } from "../../services";
+import { useNotification } from "../../Notification";
 
 type Props = {
   record: Record<string, unknown>;
@@ -16,6 +17,7 @@ type FieldType = {
 };
 
 const EditStudentModal = ({ record }: Props) => {
+  const notificationApi = useNotification();
   const { getStudents } = useGetStudents();
   const { getClasses } = useGetClasses();
   const { classes } = useStore();
@@ -59,7 +61,10 @@ const EditStudentModal = ({ record }: Props) => {
       setIsModalOpen(false);
       form.resetFields();
     } catch (error) {
-      console.log(error);
+      notificationApi.error({
+        message: "Lỗi",
+        description: error.message,
+      });
     }
   };
 

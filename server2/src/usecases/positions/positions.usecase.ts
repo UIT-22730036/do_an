@@ -6,6 +6,7 @@ import { PositionRepository } from 'src/infrastructures/positions/position.repos
 interface IPositionUseCase {
   findAll(): Promise<PositionEntity[]>;
   createBatch(data: CreatePositionDto[]): Promise<PositionEntity[]>;
+  delete(id: number);
 }
 
 @Injectable()
@@ -33,5 +34,9 @@ export class PositionUseCase implements IPositionUseCase {
     }
 
     return this.positionRepository.createBatch(positions);
+  }
+
+  delete(id: number) {
+    return this.positionRepository.delete(id);
   }
 }

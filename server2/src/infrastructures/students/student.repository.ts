@@ -22,7 +22,10 @@ export class StudentRepository implements IStudentRepository {
   ) {}
 
   findAll(): Promise<StudentEntity[]> {
-    return this.studentRepository.find({ where: { deletedAt: IsNull() } });
+    return this.studentRepository.find({
+      where: { deletedAt: IsNull() },
+      order: { id: 'ASC' },
+    });
   }
 
   findById(id: number): Promise<StudentEntity> {

@@ -1,17 +1,17 @@
-import { DeleteOutlined } from "@ant-design/icons";
-import { Button, Modal } from "antd";
 import React, { useState } from "react";
-import { cardService } from "../../services";
-import { useGetCards } from "../../hooks/card.hook";
+import { useGetPositions } from "../../hooks";
+import { Button, Modal } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
+import { positionService } from "../../services";
 import { useNotification } from "../../Notification";
 
 type Props = {
   record: Record<string, unknown>;
 };
 
-const DeleteCardModal = ({ record }: Props) => {
+const DeletePositionModal = ({ record }: Props) => {
   const notificationApi = useNotification();
-  const { getCards } = useGetCards();
+  const { getPositions } = useGetPositions();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
@@ -20,8 +20,8 @@ const DeleteCardModal = ({ record }: Props) => {
 
   const handleOk = async () => {
     try {
-      await cardService.deleteCard(record.id as number);
-      await getCards();
+      await positionService.deletePosition(record.id as number);
+      await getPositions();
     } catch (error) {
       notificationApi.error({
         message: "Lỗi",
@@ -40,7 +40,7 @@ const DeleteCardModal = ({ record }: Props) => {
         <DeleteOutlined />
       </Button>
       <Modal
-        title="Xóa thẻ"
+        title="Xóa vị trí"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
@@ -50,11 +50,12 @@ const DeleteCardModal = ({ record }: Props) => {
         }}
       >
         <p>
-          Bạn chắc chắn muốn xóa thẻ <strong>{record.id as string}</strong>?
+          Bạn chắc chắn muốn xóa vị trí <strong>{record.name as string}</strong>
+          ?
         </p>
       </Modal>
     </>
   );
 };
 
-export default DeleteCardModal;
+export default DeletePositionModal;

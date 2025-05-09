@@ -1,23 +1,22 @@
-import { Button, Form, Input, Modal, Select } from "antd";
 import React, { useState } from "react";
-import { studentService } from "../../services";
-import { useGetClasses, useGetStudents } from "../../hooks";
+import { useGetPositions, useGetProperties } from "../../hooks";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useStore } from "../../store";
+import { propService } from "../../services";
 import { useNotification } from "../../Notification";
 
 type Props = {};
 
 type FieldType = {
   name: string;
-  email: string;
-  classId: number;
+  positionId: number;
 };
 
-const AddStudentModal = (props: Props) => {
+const AddPropModal = (props: Props) => {
   const notificationApi = useNotification();
-  const { classes } = useStore();
-  const { getStudents } = useGetStudents();
-  const { getClasses } = useGetClasses();
+  const { getProperties } = useGetProperties();
+  const { getPositions } = useGetPositions();
+  const { positions } = useStore();
   const [form] = Form.useForm();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,8 +37,12 @@ const AddStudentModal = (props: Props) => {
   const onFinish = async () => {
     try {
       const data = form.getFieldsValue();
-      await studentService.createStudent(data);
-      await getStudents();
+
+      await propService.createProp({
+        name: data.name,
+        positionId: data.positionId,
+      });
+      await getProperties();
 
       setIsModalOpen(false);
       form.resetFields();
@@ -50,39 +53,37 @@ const AddStudentModal = (props: Props) => {
       });
     }
   };
-
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Thêm SV
+        Thêm thiết bị
       </Button>
       <Modal
-        title="Thêm Sinh Viên"
+        title="Thêm thiết bị"
         open={isModalOpen}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form form={form} onFinish={onFinish} layout="vertical">
           <Form.Item<FieldType>
-            label="Tên SV"
+            label="Tên thiết bị"
             name="name"
-            rules={[{ required: true, message: "Tên không được để trông!" }]}
+            rules={[
+              { required: true, message: "Tên thiết bị không được để trống!" },
+            ]}
           >
             <Input />
           </Form.Item>
           <Form.Item<FieldType>
-            label="Email SV"
-            name="email"
-            rules={[{ required: true, message: "Email không được để trống!" }]}
+            label="Vị trí"
+            name="positionId"
+            rules={[{ required: true, message: "Vị trí không được để trống!" }]}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item<FieldType> label="Lớp" name="classId">
             <Select
-              onFocus={getClasses}
-              options={classes.map((item) => ({
-                value: item.id,
+              onFocus={getPositions}
+              options={positions.map((item) => ({
                 label: item.name,
+                value: item.id,
               }))}
             />
           </Form.Item>
@@ -92,4 +93,4 @@ const AddStudentModal = (props: Props) => {
   );
 };
 
-export default AddStudentModal;
+export default AddPropModal;

@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal } from "antd";
 import React, { useState } from "react";
 import { useGetClasses } from "../../hooks";
 import { classService } from "../../services";
+import { useNotification } from "../../Notification";
 
 type Props = {};
 
@@ -10,6 +11,7 @@ type FieldType = {
 };
 
 const AddClassModal = (props: Props) => {
+  const notificationApi = useNotification();
   const { getClasses } = useGetClasses();
   const [form] = Form.useForm();
 
@@ -37,7 +39,10 @@ const AddClassModal = (props: Props) => {
       setIsModalOpen(false);
       form.resetFields();
     } catch (error) {
-      console.log(error);
+      notificationApi.error({
+        message: "Lỗi",
+        description: error.message,
+      });
     }
   };
   return (

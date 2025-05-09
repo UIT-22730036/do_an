@@ -3,12 +3,14 @@ import { Button, Modal } from "antd";
 import React, { useState } from "react";
 import { useGetClasses } from "../../hooks";
 import { classService } from "../../services";
+import { useNotification } from "../../Notification";
 
 type Props = {
   record: Record<string, unknown>;
 };
 
 const DeleteClassModal = ({ record }: Props) => {
+  const notificationApi = useNotification();
   const { getClasses } = useGetClasses();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,7 +23,10 @@ const DeleteClassModal = ({ record }: Props) => {
       await classService.deleteClass(record.id as number);
       await getClasses();
     } catch (error) {
-      console.log(error);
+      notificationApi.error({
+        message: "Lỗi",
+        description: error.message,
+      });
     }
   };
 

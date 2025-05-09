@@ -1,53 +1,52 @@
-import React, { useEffect, useMemo } from "react";
 import moment from "moment";
+import React, { useEffect, useMemo } from "react";
+import { useGetPositions } from "../../hooks";
 import { useStore } from "../../store";
 import { Button, Table, Upload, UploadProps } from "antd";
-import { AddStudentModal, AssignCardModal } from "../modal";
-import { useGetStudents } from "../../hooks";
-import EditStudentModal from "../modal/EditStudentModal";
-import DeleteStudentModal from "../modal/DeleteStudentModal";
+import DeletePositionModal from "../modal/DeletePositionModal";
 import { getUploadProps } from "../../utils";
 import { useNotification } from "../../Notification";
 
 type Props = {};
 
-const StudentTable = (props: Props) => {
+const PositionTable = (props: Props) => {
   const notificationApi = useNotification();
-  const { getStudents } = useGetStudents();
-  const { students } = useStore();
-  const uploadProps: UploadProps = getUploadProps("students", notificationApi);
+  const { getPositions } = useGetPositions();
+  const { positions } = useStore();
+  const uploadProps: UploadProps = getUploadProps("positions", notificationApi);
 
   useEffect(() => {
-    getStudents();
+    getPositions();
   }, []);
+
+  const handleRenderType = (value: string) => {
+    switch (value) {
+      case "area":
+        return "Khu vực";
+
+      case "route":
+        return "Lối đi";
+
+      default:
+        return "";
+    }
+  };
 
   const columns = [
     {
-      title: "Mã SV",
+      title: "Mã vị trí",
       dataIndex: "id",
       key: "id",
     },
     {
-      title: "Tên SV",
+      title: "Tên vị trí",
       dataIndex: "name",
       key: "name",
     },
     {
-      title: "Email SV",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
-      title: "Mã thẻ SV",
-      dataIndex: "cardId",
-      key: "cardId",
-      render: (value) => <span>{value ?? "N/A"}</span>,
-    },
-    {
-      title: "Lớp",
-      dataIndex: "className",
-      key: "className",
-      render: (value) => <span>{value ?? "N/A"}</span>,
+      title: "Loại vị trí",
+      dataIndex: "type",
+      key: "type",
     },
     {
       title: "Ngày tạo",
@@ -71,31 +70,22 @@ const StudentTable = (props: Props) => {
       key: "action",
       render: (_, record) => (
         <div style={{ display: "flex", gap: 8 }}>
-          <EditStudentModal record={record} />
-          <DeleteStudentModal record={record} />
+          <DeletePositionModal record={record} />
         </div>
       ),
     },
   ];
 
   const data = useMemo(() => {
-    return students.map((std) => ({
-      key: std.id,
-      id: std.id,
-      name: std.name,
-      email: std.email,
-      cardId: std.card?.id,
-      className: std.lop?.name,
-      createdAt: std.createdAt,
-      updatedAt: std.updatedAt,
+    return positions.map((item) => ({
+      ...item,
+      key: item.id,
+      type: handleRenderType(item.type),
     }));
-  }, [students]);
-
+  }, [positions]);
   return (
     <div className="table-container">
       <div className="btn-group">
-        <AddStudentModal />
-        <AssignCardModal />
         <Upload {...uploadProps}>
           <Button type="primary">Import</Button>
         </Upload>
@@ -105,4 +95,4 @@ const StudentTable = (props: Props) => {
   );
 };
 
-export default StudentTable;
+export default PositionTable;
