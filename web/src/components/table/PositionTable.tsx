@@ -13,7 +13,11 @@ const PositionTable = (props: Props) => {
   const notificationApi = useNotification();
   const { getPositions } = useGetPositions();
   const { positions } = useStore();
-  const uploadProps: UploadProps = getUploadProps("positions", notificationApi);
+  const uploadProps: UploadProps = getUploadProps(
+    "positions",
+    notificationApi,
+    getPositions,
+  );
 
   useEffect(() => {
     getPositions();
@@ -42,11 +46,23 @@ const PositionTable = (props: Props) => {
       title: "Tên vị trí",
       dataIndex: "name",
       key: "name",
+      filters: positions.map((item) => ({
+        text: item.name,
+        value: item.name,
+      })),
+      onFilter: (value, record) => record.name.startsWith(value as string),
     },
     {
       title: "Loại vị trí",
       dataIndex: "type",
       key: "type",
+      filters: [...new Set(positions.map((item) => item.type))].map((item) => ({
+        text: handleRenderType(item),
+        value: item,
+      })),
+      onFilter: (value, record) =>
+        (record.type === "Khu vực" && value === "area") ||
+        (record.type === "Lối đi" && value === "route"),
     },
     {
       title: "Ngày tạo",

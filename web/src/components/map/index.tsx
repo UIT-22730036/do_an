@@ -28,6 +28,7 @@ import {
   convertStudentPoints,
   convertStudents,
 } from "../../utils";
+import "./index.scss";
 
 const MapComponent = () => {
   const { students, cards, logs, positions, properties } = useStore();

@@ -1,3 +1,5 @@
+import { IPosition } from "./position.interface";
+
 export interface ILog {
   id: number;
   cardId: number;
@@ -6,4 +8,6 @@ export interface ILog {
   createdAt: Date;
   updatedAt: Date;
   deletedAt: Date | null;
+
+  position: IPosition;
 }

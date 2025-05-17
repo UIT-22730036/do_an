@@ -19,8 +19,6 @@ export const convertStudentPoints = (students: IStudent[]) => {
   return students
     .filter((sv) => sv.lng && sv.lat)
     .map((sv) => {
-      console.log([sv.lng, sv.lat]);
-
       return {
         MaSV: sv.id,
         ToaDo: [sv.lng, sv.lat],
@@ -101,6 +99,7 @@ export const convertProperties = (props: IProperty[]) => {
 export const getUploadProps = (
   type: string,
   notificationApi: NotificationInstance,
+  callbackFn?: () => void,
 ) => {
   const uploadProps: UploadProps = {
     name: "file",
@@ -117,6 +116,8 @@ export const getUploadProps = (
           message: "Lỗi",
           description: "Tải lên thất bại",
         });
+      } else {
+        callbackFn();
       }
     },
   };

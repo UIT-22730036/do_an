@@ -27,6 +27,11 @@ const ClassTable = (props: Props) => {
       title: "Tên Lớp",
       dataIndex: "name",
       key: "name",
+      filters: classes.map((item) => ({
+        text: item.name,
+        value: item.name,
+      })),
+      onFilter: (value, record) => record.name.startsWith(value as string),
     },
     {
       title: "Sĩ số",

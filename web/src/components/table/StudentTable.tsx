@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo } from "react";
 import moment from "moment";
 import { useStore } from "../../store";
-import { Button, Table, Upload, UploadProps } from "antd";
+import { Button, Table, TableProps, Upload, UploadProps } from "antd";
 import { AddStudentModal, AssignCardModal } from "../modal";
 import { useGetStudents } from "../../hooks";
 import EditStudentModal from "../modal/EditStudentModal";
 import DeleteStudentModal from "../modal/DeleteStudentModal";
 import { getUploadProps } from "../../utils";
 import { useNotification } from "../../Notification";
+import { text } from "stream/consumers";
 
 type Props = {};
 
@@ -15,7 +16,11 @@ const StudentTable = (props: Props) => {
   const notificationApi = useNotification();
   const { getStudents } = useGetStudents();
   const { students } = useStore();
-  const uploadProps: UploadProps = getUploadProps("students", notificationApi);
+  const uploadProps: UploadProps = getUploadProps(
+    "students",
+    notificationApi,
+    getStudents,
+  );
 
   useEffect(() => {
     getStudents();
@@ -31,11 +36,21 @@ const StudentTable = (props: Props) => {
       title: "Tên SV",
       dataIndex: "name",
       key: "name",
+      filters: students.map((std) => ({
+        text: std.name,
+        value: std.name,
+      })),
+      onFilter: (value, record) => record.name.startsWith(value as string),
     },
     {
       title: "Email SV",
       dataIndex: "email",
       key: "email",
+      filters: students.map((std) => ({
+        text: std.email,
+        value: std.email,
+      })),
+      onFilter: (value, record) => record.email.startsWith(value as string),
     },
     {
       title: "Mã thẻ SV",

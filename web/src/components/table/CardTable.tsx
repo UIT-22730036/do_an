@@ -1,15 +1,23 @@
 import React, { useEffect, useMemo } from "react";
 import { useGetCards } from "../../hooks/card.hook";
 import { useStore } from "../../store";
-import { Table } from "antd";
+import { Button, Table, Upload, UploadProps } from "antd";
 import moment from "moment";
 import DeleteCardModal from "../modal/DeleteCardModal";
+import { useNotification } from "../../Notification";
+import { getUploadProps } from "../../utils";
 
 type Props = {};
 
 const CardTable = (props: Props) => {
+  const notificationApi = useNotification();
   const { getCards } = useGetCards();
   const { cards } = useStore();
+  const uploadProps: UploadProps = getUploadProps(
+    "cards",
+    notificationApi,
+    getCards,
+  );
 
   useEffect(() => {
     getCards();
@@ -75,7 +83,11 @@ const CardTable = (props: Props) => {
 
   return (
     <div className="table-container">
-      <div className="btn-group"></div>
+      <div className="btn-group">
+        <Upload {...uploadProps}>
+          <Button type="primary">Import</Button>
+        </Upload>
+      </div>
       <Table dataSource={data} columns={columns} />
     </div>
   );

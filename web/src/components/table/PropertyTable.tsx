@@ -15,7 +15,11 @@ const PropertyTable = (props: Props) => {
   const notificationApi = useNotification();
   const { getProperties } = useGetProperties();
   const { properties } = useStore();
-  const uploadProps: UploadProps = getUploadProps("property", notificationApi);
+  const uploadProps: UploadProps = getUploadProps(
+    "property",
+    notificationApi,
+    getProperties,
+  );
 
   useEffect(() => {
     getProperties();
@@ -31,11 +35,22 @@ const PropertyTable = (props: Props) => {
       title: "Tên thiết bị",
       dataIndex: "name",
       key: "name",
+      filters: properties.map((item) => ({
+        text: item.name,
+        value: item.name,
+      })),
+      onFilter: (value, record) => record.name.startsWith(value as string),
     },
     {
       title: "Vị trí",
       dataIndex: "positionName",
       key: "positionName",
+      filters: properties.map((item) => ({
+        text: item.position.name,
+        value: item.position.name,
+      })),
+      onFilter: (value, record) =>
+        record.position.name.startsWith(value as string),
     },
     {
       title: "Ngày tạo",

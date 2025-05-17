@@ -1,0 +1,7 @@
+#viewDiv canvas {
+  display: none;
+}
+
+#viewDiv canvas:first-of-type {
+  display: block;
+}

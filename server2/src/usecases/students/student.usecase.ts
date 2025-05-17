@@ -43,8 +43,6 @@ export class StudentUseCase implements IStudentUseCase {
       const lop = await this.classRepository.findById(student.classId ?? -1);
       const card = await this.cardRepository.findByStudentId(student.id);
 
-      console.log({ student, lop, card });
-
       classes.push(lop);
       cards.push(card);
     }
@@ -67,8 +65,6 @@ export class StudentUseCase implements IStudentUseCase {
   }
 
   async createBatch(data: CreateBatchStudentDto[]): Promise<StudentEntity[]> {
-    console.log('data', data);
-
     const students = [];
     const createStudentData: CreateStudentDto = { name: '', email: '' };
     for (const item of data) {

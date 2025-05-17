@@ -41,7 +41,6 @@ export class CsvService {
   // Example of processing the parsed data
   async analyzeCsvData(data: any[]): Promise<any> {
     // Your custom data processing logic here
-    console.log('Parsed CSV Data:', data);
     return { rowCount: data.length };
   }
 }
