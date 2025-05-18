@@ -5,3 +5,15 @@
 #viewDiv canvas:first-of-type {
   display: block;
 }
+
+.esri-view-root {
+  display: none;
+}
+
+.esri-view-root:first-of-type {
+  display: block;
+}
+
+.esri-view-user-storage {
+  display: none;
+}
